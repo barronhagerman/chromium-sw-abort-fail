@@ -1,0 +1,9 @@
+{
+  "name": "chromium-sw-abort-fail",
+  "version": "1.0.0",
+  "description": "Example for failure to properly abort request in Chromium (specifically, 79.0.3915.0, but earlier versions apply) when service worker is used",
+  "main": "index.js",
+  "repository": "git+https://github.com/barronhagerman/chromium-sw-abort-fail.git",
+  "author": "Barron Hagerman <barron.hagerman@banno.com>",
+  "license": "MIT"
+}
