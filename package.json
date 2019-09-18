@@ -5,5 +5,8 @@
   "main": "index.js",
   "repository": "git+https://github.com/barronhagerman/chromium-sw-abort-fail.git",
   "author": "Barron Hagerman <barron.hagerman@banno.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
 }
