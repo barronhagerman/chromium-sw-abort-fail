@@ -48,5 +48,22 @@
       console.error('service worker registration failed:', error);
     });
   </script>
-  <body>Hey there!</body>
+  <body>
+    Hey there! This page:
+    <ul>
+      <li>
+        Installs a <code>ServiceWorker</code> that merely logs requests on the <code>fetch</code> event (it does not
+        cache or otherwise alter the response).
+      </li>
+      <li>
+        waits for the <code>ServiceWorker</code> to be activated, then makes a <code>fetch</code> request to
+        <code>GET /delayedApiResponse</code> and aborts it after 2500ms
+      </li>
+    </ul>
+
+    <p>
+      Together with the packaged Express web server, this exemplifies a situation where a cookie--which may be used for
+      authentication--is re-created after a request is aborted and the cookie has been deleted.
+    </p>
+  </body>
 </html>
