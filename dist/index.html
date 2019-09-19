@@ -17,6 +17,7 @@
       setTimeout(() => {
         console.log(`aborting ${new Date().toISOString()}`);
         abortController.abort();
+        fetch('/logout');
         console.log(`aborted ${new Date().toISOString()}`);
       }, 400);
     };
