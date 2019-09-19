@@ -1,6 +1,51 @@
 <html>
   <script>
-    navigator.serviceWorker.register('/sw.js').catch(console.error);
+    const makeRequestAndAbort = () => {
+      const abortController = new AbortController();
+      const method = 'GET';
+      const url = '/delayedApiResponse';
+
+      const fetchConfig = {
+          method,
+          signal: abortController.signal
+      };
+
+      fetch(url, fetchConfig)
+        .then(response => console.log(`loaded`, new Date().toISOString(), response))
+        .catch(err => console.error(new Date().toISOString(), err));
+
+      setTimeout(() => {
+        console.log(`aborting ${new Date().toISOString()}`);
+        abortController.abort();
+        console.log(`aborted ${new Date().toISOString()}`);
+      }, 400);
+    };
+
+    navigator.serviceWorker.register('/sw.js')
+    .then(registration => {
+      const serviceWorker = registration.active
+
+      if (!serviceWorker) {
+        // No worker yet
+        navigator.serviceWorker.addEventListener('controllerchange', event => {
+          const serviceWorker = event.target && event.target.controller
+          if (serviceWorker instanceof ServiceWorker) {
+            serviceWorker.addEventListener('statechange', _ => makeRequestAndAbort());
+          } else {
+            console.error('service worker undefined');
+          }
+        });
+      } else if (serviceWorker && serviceWorker.state !== 'activated') {
+        // wait until service worker is activated to make request
+        serviceWorker.addEventListener('statechange', _ => makeRequestAndAbort());
+      } else {
+        // worker installed and activated
+        makeRequestAndAbort();
+      }
+    })
+    .catch(error => {
+      console.error('service worker registration failed:', error);
+    });
   </script>
   <body>Hey there!</body>
 </html>
