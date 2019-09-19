@@ -19,7 +19,7 @@
         abortController.abort();
         fetch('/logout');
         console.log(`aborted ${new Date().toISOString()}`);
-      }, 400);
+      }, 2500);
     };
 
     navigator.serviceWorker.register('/sw.js')
