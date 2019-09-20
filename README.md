@@ -2,7 +2,7 @@
 
 This repository contains a simple example of how Chrome may process headers on a request after it has been aborted when a Service Worker is in place. If the headers include a cookie that is used for authentication, this would essentially log the user back in.
 
-The earliest known version of Chrome where this is easily reproducible is `79.0.3909.0` (Canary). Chrome Stable `77.0.3865.90` does not appear to be affected.
+The earliest known version of Chrome where this is reproducible is `76.0.3809.132` (stable). The response headers do not appear in the dev tools Network tab, but the `set-cookie` header is processed on the aborted request. In `79.0.3909.0` (Canary), the headers can also be observed in the dev tools Network tab.
 
 The included web server services the following requests:
 
